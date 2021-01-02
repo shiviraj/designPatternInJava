@@ -1,13 +1,16 @@
 package singleton;
 
-public class BasicSingleton {
+import java.io.Serial;
+import java.io.Serializable;
+
+public class BasicSingleton implements Serializable {
     private BasicSingleton() {
     }
 
-    private static final BasicSingleton instance = new BasicSingleton();
+    private static final BasicSingleton INSTANCE = new BasicSingleton();
 
     public static BasicSingleton getInstance() {
-        return instance;
+        return INSTANCE;
     }
 
     private int value = 0;
@@ -18,5 +21,10 @@ public class BasicSingleton {
 
     public int getValue() {
         return value;
+    }
+
+    @Serial
+    protected Object readResolve() {
+        return INSTANCE;
     }
 }
